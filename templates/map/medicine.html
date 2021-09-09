@@ -31,9 +31,9 @@
 		</ul>
 		<div>
 		{% if session.flag == True %}
-			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/#'">게시판</button>
-			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/post'">질문게시판</button>
-			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/#'">마이페이지</button>
+			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/gallery/list'">게시판</button>
+			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/board/list'">질문게시판</button>
+			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/member/myinfo'">마이페이지</button>
 			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/member/logout'">로그아웃</button>
 		{% else %}
 			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/member/loginForm'">로그인</button>

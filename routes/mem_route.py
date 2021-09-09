@@ -40,7 +40,7 @@ def login():
     pwd = request.form['pwd']
     flag = service.login(id, pwd)
     if flag:
-        return render_template('index.html')
+        return render_template('map/health.html')
     else:
         return render_template('member/error.html')
 
@@ -54,13 +54,13 @@ def myinfo():
 @bp.route('/out')
 def out():
     service.out()
-    return render_template('index.html')
+    return render_template('map/health.html')
 
 
 @bp.route('/logout')
 def logout():
     service.logout()
-    return render_template('index.html')
+    return render_template('map/health.html')
 
 
 @bp.route('/edit', methods=['POST'])
@@ -70,7 +70,7 @@ def edit():
     email = request.form['email']
     mobile = request.form['mobile']
     service.editMyInfo(name, pwd, email, mobile)
-    return render_template('index.html')
+    return render_template('map/health.html')
 
 
 @bp.route('/findIdForm')
@@ -132,4 +132,4 @@ def kakaoLogin():
     print('route id', id)
     flag = service.KakaoLogin(id)
     if flag:
-        return render_template('index.html')
+        return render_template('map/health.html')
