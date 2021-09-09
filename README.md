@@ -10,4 +10,7 @@
 
 >> ERD cloud
 - https://www.erdcloud.com/d/wk6kSD22armxcykPP
+
+>> Flow chart
+- https://github.com/PD-team2/OurHome/blob/main/static/img/flowchart.png
  
