@@ -42,7 +42,7 @@ migrate.init_app(app, db)
 def root():
     if 'flag' not in session.keys():
         session['flag']=False
-    return render_template('map/health.html')
+    return render_template('map/maphome.html')
 
 
 if __name__ == '__main__':
