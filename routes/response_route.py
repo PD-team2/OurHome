@@ -10,14 +10,13 @@ def addFormResponse():
     return render_template('response/form.html')
 
 @bp.route('/get')
-def getContent():
-    num = request.args.get('num', 0, int)
-    b = service.getByNum(num)
-    return render_template('response/content.html', b=b)
+def getResponse():
+    r = service.getAllResponse()
+    return render_template('response/viewResponse.html', r=r)
 
 @bp.route('/add', methods=['POST'])
 def addResponse():
-    resnum = int(request.form['resnum'])
+    resnum = request.form['resnum']
     write = request.form['write']
     service.addResponse(Response(resnum=resnum, write=write))
     return redirect('/board/list')
