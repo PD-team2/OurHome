@@ -1,3 +1,4 @@
+from datetime import datetime
 import sys
 
 from flask import session
@@ -16,6 +17,14 @@ class Member(db.Model):
     email = db.Column(db.String(40), nullable=False)
     mobile = db.Column(db.String(20), nullable=False)
 
+#갤러리
+class Gallery(db.Model):
+    gall_num = db.Column(db.Integer, primary_key=True)
+    gall_writer = db.Column(db.String(30), db.ForeignKey('member.id', ondelete='CASCADE'))
+    gall_date = db.Column(db.Date(), nullable=False)
+    gall_title = db.Column(db.String(100), nullable=False)
+    gall_content = db.Column(db.String(1500), nullable=False)
+    gall_img = db.Column(db.String(500), nullable=False)
 
 class MemService:
     def join(self, m: Member):  # 회원가입
@@ -78,3 +87,55 @@ class MemService:
         session['flag'] = True
         return True
 
+#갤러리
+class GalleryService:
+    def addBoard(self, g:Gallery):
+        g.gall_date = datetime.now()
+        db.session.add(g)
+        db.session.commit()
+
+    def getBoard(self, gall_num:int):
+        return Gallery.query.get(gall_num)
+
+    def getAll(self):
+        return Gallery.query.order_by(Gallery.gall_num.desc())
+
+    # def getByTitle(self, gall_title):
+    #     return Gallery.query.filter(Gallery.gall_title.like('%'+gall_title+'%')).all()
+
+    # def getByWriter(self, gall_writer):
+    #     gall = Member.query.get(gall_writer)
+    #     if gall is not None:
+    #         return gall.gall_set
+
+    def editBoard(self, g:Gallery):
+        print("###", g.gall_num)
+        g2 = Gallery.query.get(g.gall_num)
+        print("###", g2)
+        g2.date = g.gall_date
+        g2.title = g.gall_title
+        g2.content = g.gall_content
+        db.session.commit()
+
+    # def editBoard(self, gall_num:int, num:int, date:datetime, title:str, content:str):
+    #     g2 = self.getBoard(gall_num)
+    #     print('##:', gall_num, num, date, title, content)
+    #     # g2.date = g.gall_date
+    #     # g2.title = g.gall_title
+    #     # g2.content = g.gall_content
+    #     g2.num = num
+    #     g2.date = date
+    #     g2.title = title
+    #     g2.content = content
+    #     print('##:', g2.num, g2.date, g2.title, g2.content)
+    #     db.session.commit()
+
+    # def delBoard(self, gall_num:int):
+    #     g = self.getBoard(gall_num)
+    #     db.session.delete(g)
+    #     db.session.commit()
+
+    def delBoard(self, gall_num:int):
+        g = self.getBoard(gall_num)
+        db.session.delete(g)
+        db.session.commit()
