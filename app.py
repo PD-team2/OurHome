@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, request
 from member import db, migrate
 import routes.mem_route as mr
+import routes.map_route as mp
 
 import config
 
@@ -22,6 +23,7 @@ app.config.from_object(config)
 
 #블루 프린트 등록
 app.register_blueprint(mr.bp)
+app.register_blueprint(mp.bp)
 # app.register_blueprint(br.bp)
 # app.register_blueprint(ur.bp)
 
