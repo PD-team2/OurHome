@@ -3,6 +3,8 @@ from member import db, migrate
 import routes.mem_route as mr
 import routes.map_route as mp
 import routes.gall_route as gr
+import routes.board_route as br
+import routes.response_route as rr
 
 import config
 
@@ -26,6 +28,8 @@ app.config.from_object(config)
 app.register_blueprint(mr.bp)
 app.register_blueprint(mp.bp)
 app.register_blueprint(gr.bp)
+app.register_blueprint(br.bp)
+app.register_blueprint(rr.bp)
 # app.register_blueprint(ur.bp)
 
 

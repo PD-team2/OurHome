@@ -26,6 +26,21 @@ class Gallery(db.Model):
     gall_content = db.Column(db.String(1500), nullable=False)
     gall_img = db.Column(db.String(500), nullable=False)
 
+#게시판
+class Board(db.Model):
+    num = db.Column(db.Integer, primary_key=True)
+    writer = db.Column(db.String(20), db.ForeignKey('member.id', ondelete='CASCADE'))
+    #역참조.
+    member = db.relationship('Member', backref=db.backref('board_set'))
+    w_date = db.Column(db.DateTime(), nullable=False)
+    title = db.Column(db.String(50), nullable=False)
+    content = db.Column(db.String(200), nullable=False)
+
+#댓글
+class Response(db.Model):
+    resnum = db.Column(db.Integer, primary_key=True)
+    write = db.Column(db.String(20), nullable=False)
+
 class MemService:
     def join(self, m: Member):  # 회원가입
         db.session.add(m)
@@ -139,3 +154,47 @@ class GalleryService:
         g = self.getBoard(gall_num)
         db.session.delete(g)
         db.session.commit()
+ 
+#게시판       
+class BoardService:
+    def addBoard(self, b:Board):#작성자id, title, content
+        b.w_date = datetime.now()
+        db.session.add(b)
+        db.session.commit()
+
+    def getBoard(self, num):
+        return Board.query.get(num)
+
+    def getAll(self):
+        return Board.query.order_by(Board.num.desc())
+
+    def getByTitle(self, tit):
+        return Board.query.filter(Board.title.like('%'+tit+'%')).all()
+
+    def getByNum(self, num:int):
+        return Board.query.get(num)
+
+    def getByWriter(self, writer):
+        mem = Member.query.get(writer)
+        if mem is not None:
+            return mem.board_set #작성자가 쓴 모든 글 검색해서 반환
+
+    def editBoard(self, b:Board):
+        b2 = Board.query.get(b.num)
+        b2.writer = b.writer
+        b2.title = b.title
+        b2.content = b.content
+        db.session.commit()
+
+    def delBoard(self, num:int):
+        b = Board.query.get(num)
+        db.session.delete(b)
+        db.session.commit()
+#댓글
+class ResponseService():
+    def addResponse(self, r:Response):  # 작성자id, title, content
+        db.session.add(r)
+        db.session.commit()
+
+    def getAllResponse(self):
+        return Response.query.order_by(Response.write.desc())
