@@ -62,26 +62,26 @@ def detail(gall_num):
 #     glist = service.getByWriter(gall_writer)
 #     return render_template('gallery/list.html', glist=glist)
 
-# @bp.route('/getbytitle/<string:gall_title>')
-# def detail(gall_title):
-#     glist = service.getByTitle(gall_title)
-#     return render_template('gallery/list.html', glist=glist)
+@bp.route('/getbytitle/<string:gall_title>')
+def detailTitle(gall_title):
+    glist = service.getByTitle(gall_title)
+    return render_template('gallery/list.html', glist=glist)
 
 
 @bp.route('/edit/<int:gall_num>')
 def editPage(gall_num):
     g = service.getBoard(gall_num)
     return render_template('gallery/edit.html', g=g)
+    return redirect('/gallery/editDone')
 
-@bp.route('/edit', methods=['POST'])
+@bp.route('/editDone', methods=['POST'])
 def edit():
     num = request.form['gall_num']
+    date = datetime.now()
     title = request.form['gall_title']
     content = request.form['gall_content']
-    date = datetime.now()
     service.editBoard(Gallery(gall_num=num, gall_date=date, gall_title=title, gall_content=content))
     print("### route:", num,date,title,content)
-    return render_template('gallery/list.html')
     return redirect('/gallery/list')
 
 # @bp.route('/edit', methods=['POST'])

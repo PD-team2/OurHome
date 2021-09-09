@@ -115,8 +115,8 @@ class GalleryService:
     def getAll(self):
         return Gallery.query.order_by(Gallery.gall_num.desc())
 
-    # def getByTitle(self, gall_title):
-    #     return Gallery.query.filter(Gallery.gall_title.like('%'+gall_title+'%')).all()
+    def getByTitle(self, gall_title):
+        return Gallery.query.filter(Gallery.gall_title.like('%'+gall_title+'%')).all()
 
     # def getByWriter(self, gall_writer):
     #     gall = Member.query.get(gall_writer)
@@ -154,48 +154,3 @@ class GalleryService:
         g = self.getBoard(gall_num)
         db.session.delete(g)
         db.session.commit()
- 
-#게시판       
-class BoardService:
-    def addBoard(self, b:Board):#작성자id, title, content
-        b.w_date = datetime.now()
-        db.session.add(b)
-        db.session.commit()
-
-    def getBoard(self, num):
-        return Board.query.get(num)
-
-    def getAll(self):
-        return Board.query.order_by(Board.num.desc())
-
-    def getByTitle(self, tit):
-        return Board.query.filter(Board.title.like('%'+tit+'%')).all()
-
-    def getByNum(self, num:int):
-        return Board.query.get(num)
-
-    def getByWriter(self, writer):
-        mem = Member.query.get(writer)
-        if mem is not None:
-            return mem.board_set #작성자가 쓴 모든 글 검색해서 반환
-
-    def editBoard(self, b:Board):
-        b2 = Board.query.get(b.num)
-        b2.writer = b.writer
-        b2.title = b.title
-        b2.content = b.content
-        db.session.commit()
-
-    def delBoard(self, num:int):
-        b = Board.query.get(num)
-        db.session.delete(b)
-        db.session.commit()
-        
-#댓글
-class ResponseService():
-    def addResponse(self, r:Response):  # 작성자id, title, content
-        db.session.add(r)
-        db.session.commit()
-
-    def getAllResponse(self):
-        return Response.query.get()

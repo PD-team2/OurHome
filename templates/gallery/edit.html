@@ -17,16 +17,16 @@
 		<div class="container-fluid full-width">
 		<ul class="nav navbar-nav">
 		<li class="nav-item active">
-
+			<a class="nav-link" href="/post">Post</a>
 		</li>
 		<li class="nav-item">
-
+			<a class="nav-link" href="/post">Post2</a>
 		</li>
 		</ul>
 		<div>
 		{% if session.flag == True %}
-			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/gallery/list'">갤러리</button>
-			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/board/list'">자유게시판</button>
+			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/gallery/list'">게시판</button>
+			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/post'">질문게시판</button>
 			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/member/myinfo'">마이페이지</button>
 			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/member/logout'">로그아웃</button>
 		{% else %}
@@ -42,7 +42,7 @@
       <div class="container px-4 px-lg-5 mt-5">
           <div class="justify-content-center">
 
-<form action="/gallery/edit" method="POST" enctype="multipart/form-data">
+<form action="/gallery/editDone" method="POST" enctype="multipart/form-data">
   	<fieldset>
 	<div class="justify-content-center text-center">
 	<h2>

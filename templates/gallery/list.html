@@ -9,7 +9,9 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <script>
-
+        function b() {
+            location.href="/gallery/getbytitle/"+f.gall_title.value
+        }
     </script>
 </head>
 <body>
@@ -20,16 +22,16 @@
 		<div class="container-fluid full-width">
 		<ul class="nav navbar-nav">
 		<li class="nav-item active">
-
+			<a class="nav-link" href="/post">Post</a>
 		</li>
 		<li class="nav-item">
-
+			<a class="nav-link" href="/post">Post2</a>
 		</li>
 		</ul>
 		<div>
 		{% if session.flag == True %}
-			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/gallery/list'">갤러리</button>
-			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/board/list'">자유게시판</button>
+			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/gallery/list'">게시판</button>
+			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/post'">질문게시판</button>
 			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/member/myinfo'">마이페이지</button>
 			<button class="btn btn-dark btn-right" type="button" onclick="location.href='/member/logout'">로그아웃</button>
 		{% else %}
@@ -40,22 +42,28 @@
 		</div>
 	</nav>
 	</div>
+ <div style="text-align:center; margin-top:5%;">
+     <form name="f">
+         <input type="text" name="gall_title" placeholder="제목 검색" style="width:300px">&nbsp<input type="button" class="btn btn-light" value="검색" onclick="b()"><br/>
+     </form>
+     <br>
+     <button class="btn btn-light"><a class="text-info text-center" href="/gallery/add">글 작성하기</a></button>
+ </div>
 
-<a class="text-info text-center" href="/gallery/add">글 작성하기</a>
 
 {% for g in glist %}
-<div class="row justify-content-center" >
-    <div class="col-xl-8 col-lg-6 col-md-8">
+<div class="row justify-content-center" style="margin-top:1%; text-align: center">
+        <div class="col-xl-7 col-lg-6 col-md-5">
         <div class="card my-3">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
                     <div class="col-lg-5 d-none d-lg-block"></div>
                     <div class="col-lg-12">
-                        <div class="p-5">
+                        <div class="p-3">
                         <br>
                         <br>
-                            <div class="text-center">
+                            <div style="text-align:center">
                                 <img src='{{g.gall_img}}' style="width:800px;height:500px"><br/>
                                 <br>
                                 <h5><a class="text-info" href="/gallery/detail/{{g.gall_num}}">{{g.gall_title}}</a></h5><br/>
@@ -71,6 +79,31 @@
 </div>
 {% endfor %}
 
-
+<!--<div style="text-align:center" class="pagination">-->
+<!--  <ul class="pagination">-->
+<!--    <li class="page-item disabled">-->
+<!--      <a class="page-link" href="#">&laquo;</a>-->
+<!--    </li>-->
+<!--    <li class="page-item active">-->
+<!--      <a class="page-link" href="#">1</a>-->
+<!--    </li>-->
+<!--    <li class="page-item">-->
+<!--      <a class="page-link" href="#">2</a>-->
+<!--    </li>-->
+<!--    <li class="page-item">-->
+<!--      <a class="page-link" href="#">3</a>-->
+<!--    </li>-->
+<!--    <li class="page-item">-->
+<!--      <a class="page-link" href="#">4</a>-->
+<!--    </li>-->
+<!--    <li class="page-item">-->
+<!--      <a class="page-link" href="#">5</a>-->
+<!--    </li>-->
+<!--    <li class="page-item">-->
+<!--      <a class="page-link" href="#">&raquo;</a>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+</div>
 </body>
 </html>
