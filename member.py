@@ -38,8 +38,8 @@ class Board(db.Model):
 
 #댓글
 class Response(db.Model):
-    resnum = db.Column(db.Integer, primary_key=True)
-    write = db.Column(db.String(20), nullable=False)
+    resnum = db.Column(db.String(20), primary_key=True)
+    write = db.Column(db.String(200), nullable=False)
 
 class MemService:
     def join(self, m: Member):  # 회원가입
@@ -190,6 +190,7 @@ class BoardService:
         b = Board.query.get(num)
         db.session.delete(b)
         db.session.commit()
+        
 #댓글
 class ResponseService():
     def addResponse(self, r:Response):  # 작성자id, title, content
@@ -197,4 +198,4 @@ class ResponseService():
         db.session.commit()
 
     def getAllResponse(self):
-        return Response.query.order_by(Response.write.desc())
+        return Response.query.get()
